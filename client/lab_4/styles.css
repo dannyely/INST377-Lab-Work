@@ -113,7 +113,7 @@
 
 .photo-grid-container {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
 }
 
@@ -139,6 +139,7 @@
   height: 50px;
   width: 50px;
   cursor: pointer;
+  margin: 20px;
 }
 .photo-grid-container button:focus {
     background-color: burlywood;
