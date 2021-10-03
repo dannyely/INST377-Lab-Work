@@ -1,3 +1,48 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: ‘Segoe UI’, Candara, ‘Bitstream Vera Sans’, ‘DejaVu Sans’,
+    ‘Bitsream Vera Sans’, ‘Trebuchet MS’, Verdana, ‘Verdana Ref’, sans-serif;
+  background-color: darkslategray;
+  min-height: 100%;
+}
+html {
+  height: 100%;
+} */
+
+/* Page Layout */
+/* .columns {
+  display: flex;
+  flex-wrap: wrap;
+  color: black;
+  background-color: lightgoldenrodyellow;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  max-width: 960px;
+  margin-top: 25px;
+}
+
+.label {
+  color: black;
+}
+.banner {
+  background-color: thistle;
+  margin: 30px;
+  border-radius: 4px;
+} */
+
+/* above is what currently it was using */
 * {
   margin: 0;
   padding: 0;
@@ -10,18 +55,34 @@ body {
   font-family: ‘Segoe UI’, Candara, ‘Bitstream Vera Sans’, ‘DejaVu Sans’,
     ‘Bitsream Vera Sans’, ‘Trebuchet MS’, Verdana, ‘Verdana Ref’, sans-serif;
   background-color: darkslategray;
+  min-height: 100%;
 }
-
+.banner {
+  background-color: thistle;
+  margin: 30px;
+  border-radius: 4px;
+}
 /* Page Layout */
 .columns {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .wrapper {
   display: flex;
+  flex-direction: column;
 }
 .container {
   max-width: 960px;
   margin-top: 25px;
+}
+html {
+  height: 100%;
+}
+.column {
+  background-color: lightgreen;
+}
+.space {
+  background-color: darkslategray
 }
