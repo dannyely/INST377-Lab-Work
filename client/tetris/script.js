@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const width = 10;
   const grid = document.querySelector(".grid");
-  const squares = Array.from(document.querySelectorAll(".grid div"));
-  const ScoreDisplay = document.querySelector("#score");
-  const StartBtn = document.querySelector("#start-button");
+  let squares = Array.from(document.querySelectorAll(".grid div"));
+  const scoreDisplay = document.querySelector("#score");
+  const startBtn = document.querySelector("#start-button");
   let nextRandom = 0;
+  let timerID;
+  let score = 0;
 
   // The Tetrominoes
   const lTetromino = [
@@ -70,9 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // make tetromino move down
-  timerID = setInterval(moveDown, 500);
-
   // assign functions to keycodes
   function control(e) {
     if (e.keyCode === 37) {
@@ -111,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPosition = 4;
       draw();
       displayShape();
+      addScore();
+      gameOver();
     }
   }
 
@@ -181,5 +182,60 @@ document.addEventListener("DOMContentLoaded", () => {
     upNextTetrominoes[nextRandom].forEach((index) => {
       displaySquares[displayIndex + index].classList.add("tetromino");
     });
+  }
+
+  // add pause/stop button
+  startBtn.addEventListener("click", () => {
+    if (timerID) {
+      clearInterval(timerID);
+      timerID = null;
+    } else {
+      // draw();
+      timerID = setInterval(moveDown, 1000);
+      // nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+      // displayShape();
+    }
+  });
+
+  function addScore() {
+    for (let i = 0; i < 199; i += width) {
+      const row = [
+        i,
+        i + 1,
+        i + 2,
+        i + 3,
+        i + 4,
+        i + 5,
+        i + 6,
+        i + 7,
+        i + 8,
+        i + 9,
+      ];
+      if (row.every((index) => squares[index].classList.contains("taken"))) {
+        score += 10;
+        scoreDisplay.innerHtml = score;
+        row.forEach((index) => {
+          squares[index].classList.remove("taken");
+        });
+        row.forEach((index) => {
+          squares[index].classList.remove("tetromino");
+        });
+        const squaresRemoved = squares.splice(i, width);
+        console.log(squaresRemoved);
+        squares = squaresRemoved.concat(squares);
+        squares.forEach((cell) => grid.appendChild(cell));
+      }
+    }
+  }
+
+  function gameOver() {
+    if (
+      current.some((index) =>
+        squares[currentPosition + index].classList.contains("taken")
+      )
+    ) {
+      scoreDisplay.innerHTML = "end";
+      clearInterval(timerID);
+    }
   }
 });
