@@ -11,22 +11,27 @@
     <!-- add in the search box and suggestions part -->
     <div>
         <h1>Search Fast Food Restaurants In PG County</h1>
+        <p>This will return all matching fast food restaurants and the city they are in!</p>
       <input class="search" />
       <p class="suggestions"></p>
     </div>
   </body>
 </html>
 <script>
+
+ async function windowsActions()   {
   const endpoint =
     'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
 
-  const restaurants = [];
+  
 
+  const response = await fetch(endpoint);
+  let restaurants = await response.json();
   // const prom = fetch(endpoint)
   // console.log(prom)
-  fetch(endpoint).then((blob) =>
-    blob.json().then((data) => restaurants.push(...data))
-  );
+//   fetch(endpoint).then((blob) =>
+//     blob.json().then((data) => restaurants.push(...data))
+//   );
 
   function findMatches(wordToMatch, restaurants) {
     return restaurants.filter((establishment) => {
@@ -37,14 +42,14 @@
     });
   }
 
-  function displayMatches() {
-    const matchArray = findMatches(this.value, restaurants);
+  function displayMatches(event) {
+    const matchArray = findMatches(event.target.value, restaurants);
     const html = matchArray
       .map((establishment) => {
-        const regex = new RegExp(this.value, 'gi');
+        const regex = new RegExp(event.target.value, 'gi');
         const nameRestaurant = establishment.name.replace(
           regex,
-          `<span class="hl">${this.value}</span>`
+          `<span class="hl">${event.target.value}</span>`
         );
         return `
         <li>
@@ -64,5 +69,8 @@
   const suggestions = document.querySelector('.suggestions');
 
   searchInput.addEventListener('change', displayMatches);
-  searchInput.addEventListener('keyup', displayMatches);
+  searchInput.addEventListener('keyup', evt => { displayMatches(evt)});
+
+}
+window.onload = windowsActions;
 </script>
