@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!-- add in the search box and suggestions part -->
+    <div>
+        <h1>Search Fast Food Restaurants In PG County</h1>
+      <input class="search" />
+      <p class="suggestions"></p>
+    </div>
+  </body>
+</html>
+<script>
+  const endpoint =
+    'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
+
+  const restaurants = [];
+
+  // const prom = fetch(endpoint)
+  // console.log(prom)
+  fetch(endpoint).then((blob) =>
+    blob.json().then((data) => restaurants.push(...data))
+  );
+
+  function findMatches(wordToMatch, restaurants) {
+    return restaurants.filter((establishment) => {
+      //only look with matching category
+      if (establishment.category.includes("Fast Food")) {
+      const regex = new RegExp(wordToMatch, 'gi');
+      return establishment.name.match(regex)}
+    });
+  }
+
+  function displayMatches() {
+    const matchArray = findMatches(this.value, restaurants);
+    const html = matchArray
+      .map((establishment) => {
+        const regex = new RegExp(this.value, 'gi');
+        const nameRestaurant = establishment.name.replace(
+          regex,
+          `<span class="hl">${this.value}</span>`
+        );
+        return `
+        <li>
+           <span class="name">${nameRestaurant},${establishment.city}</span>
+        </li>
+        `;
+      })
+      .join('');
+    suggestions.innerHTML = html;
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().reestablishment(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  const searchInput = document.querySelector('.search');
+  const suggestions = document.querySelector('.suggestions');
+
+  searchInput.addEventListener('change', displayMatches);
+  searchInput.addEventListener('keyup', displayMatches);
+</script>
