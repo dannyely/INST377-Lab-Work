@@ -1,0 +1,17 @@
+.suggestions {
+    text-transform:uppercase
+}
+.hl {
+    color: blueviolet;
+    background-color: tomato;
+}
+.container {
+    display: flex;
+}
+#mapid {
+    height: 500px;
+    width: 500px;
+}
+.left_column {
+    margin-right: 30px;
+}
