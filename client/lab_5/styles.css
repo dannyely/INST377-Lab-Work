@@ -60,13 +60,15 @@ body {
 .banner {
   background-color: thistle;
   margin: 30px;
-  border-radius: 4px;
+  padding: 30px;
+  border-radius: 6px;
 }
 /* Page Layout */
 .columns {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  gap: 1.5em;
 }
 
 .wrapper {
@@ -82,6 +84,8 @@ html {
 }
 .column {
   background-color: lightgreen;
+  border-radius: 6px;
+  padding: 20px;
 }
 .space {
   background-color: darkslategray
